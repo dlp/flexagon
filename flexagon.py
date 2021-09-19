@@ -135,4 +135,18 @@ if __name__ == "__main__":
     for t in [t3_A, t3_BC, t3_EF, t3_D]:
         paste_and_mask(images[2], *t)
 
+    # draw lines
+    dw = ImageDraw.Draw(flexagon)
+    # vertical lines
+    dw.line([(0, s), (0, 5*s)], fill=0)
+    dw.line([(h, 0.5*s), (h, 5.5*s)], fill=0)
+    dw.line([(2*h-1, 0), (2*h-1, 5*s)], fill=0) # -1 offset to stay on canvas
+    # from left bottom to right top (last one is cropped)
+    for i in range(6):
+        dw.line([(0, (i+1)*s), (2*h, i*s)], fill=0)
+    # from left top to right bottom (first one starts in half)
+    dw.line([(h, 0.5*s), (2*h, s)], fill=0)
+    for i in range(1,5):
+        dw.line([(0, i*s), (2*h, (i+1)*s)], fill=0)
+
     flexagon.save(sys.argv[4])
